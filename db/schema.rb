@@ -10,13 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_26_031404) do
+ActiveRecord::Schema.define(version: 2019_12_27_020200) do
 
-  create_table "tasks", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "tasks" because of following StandardError
+#   Unknown type 'stirng' for column 'name'
 
 end
