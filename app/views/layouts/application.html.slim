@@ -8,19 +8,20 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    .app-title.navbar.navbar-expnad-md.navbar-light.bg-light
-      .navbar-brand Taskleaf
-
-      ul.navbar-nav.ml-auto
-        - if current_user
-          li.nav-item= link_to "タスク一覧", tasks_url, class: "nav-link"
-          li.nav-item= link_to "ユーザー一覧", users_url, class: "nav-link"
-          li.nav-item= link_to "ログアウト", logout_url, method: :delete, class: "nav-link"
-        -else
-          li.nav-item= link_to "新規登録", new_user_path, class:"nav-link"
-          li.nav-item= link_to "ログイン", login_path, class:" nav-link"
-
     .container
-      -if flash.notice.present?
-        .alert.alert-success = flash.notice
-      = yield
+      .nav.navbar.navbar-expand-md.navbar-light.bg-light
+        .navbar-brand Taskleaf
+
+        ul.navbar-nav.ml-auto
+          - if current_user
+            li.nav-item= link_to "タスク一覧", tasks_url, class: "nav-link b"
+            li.nav-item= link_to "ユーザー一覧", users_url, class: "nav-link"
+            li.nav-item= link_to "ログアウト", logout_url, method: :delete, class: "nav-link"
+          -else
+            li.nav-item= link_to "新規登録", new_user_path, class:"nav-link"
+            li.nav-item= link_to "ログイン", login_path, class:" nav-link"
+
+      .container
+        -if flash.notice.present?
+          .alert.alert-success = flash.notice
+        = yield

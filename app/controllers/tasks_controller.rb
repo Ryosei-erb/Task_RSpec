@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
   end
 
   def new
@@ -16,26 +16,32 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.new(task_params)
     if @task.save
-      redirect_to @task, notice: "タスク #{@task.name} を登録しました"
+      redirect_to @task, notice: "タスク「 #{@task.name} 」を登録しました"
     else
       render :new
     end
   end
 
   def edit
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
   end
 
   def update
-    task = current_user.tasks.find(params[:id])
-    task.update!(task_params)
-    redirect_to tasks_url, notice: "タスク #{task.name} を更新しました"
+    @task = current_user.tasks.find_by(id: params[:id])
+    if @task && @task.update(task_params)
+      redirect_to tasks_url, notice: "タスク「 #{@task.name} 」を更新しました"
+    else
+      render :edit
+    end
   end
 
   def destroy
-    task = current_user.tasks.find(params[:id])
-    task.destroy
-    redirect_to tasks_url, notice: "タスク #{task.name} を削除しました"
+    task = current_user.tasks.find_by(id: params[:id])
+    if task.present?
+      task.destroy
+      redirect_to tasks_url, notice: "タスク「 #{task.name} 」を削除しました"
+    end
+
   end
 
   private
